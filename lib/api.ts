@@ -16,12 +16,17 @@ const headers = {
 
 export const noteFetch = async (
   text: string,
-  page: number
+  page: number,
+  tag?: string
 ): Promise<FetchItem> => {
-  const res = await axios.get<FetchItem>(
-    `${API_URL}?search=${text}&page=${page}&perPage=20&sortBy=created`,
-    { headers }
-  );
+  let url = `${API_URL}?search=${text}&page=${page}&perPage=20&sortBy=created`;
+
+  if (tag && tag !== "all") {
+    url += `&tag=${tag}`;
+  }
+
+  const res = await axios.get<FetchItem>(url, { headers });
+
   return res.data;
 };
 
@@ -45,11 +50,4 @@ export const noteCreate = async ({
 export const fetchNoteById = async (id: string): Promise<Note> => {
   const { data } = await axios.get<Note>(`${API_URL}/${id}`, { headers });
   return data;
-};
-
-export const getTag = async (tag?: string): Promise<FetchItem> => {
-  const url = tag ? `${API_URL}?tag=${tag}` : API_URL;
-  const res = await axios.get<FetchItem>(url, { headers });
-  console.log(res);
-  return res.data;
 };

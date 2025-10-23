@@ -1,18 +1,24 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { fetchNoteById } from "@/lib/api";
 import ModalNote from "@/components/ModalNote/ModalNote";
 import css from "./NotePreview.module.css";
 
 export default function NotePreview() {
+  const router = useRouter();
+
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, error } = useQuery({
-    queryKey: ["noteModal", id],
+    queryKey: ["note", id],
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
   });
+
+  const handleClose = () => {
+    router.back();
+  };
 
   if (isLoading) {
     return <p>Loading, please wait...</p>;
@@ -31,6 +37,9 @@ export default function NotePreview() {
         <div className={css.item}>
           <div className={css.header}>
             <h2>{data.title}</h2>
+            <button className={css.closeButton} onClick={handleClose}>
+              ✕
+            </button>
           </div>
           <p className={css.content}>{data.content}</p>
           <p className={css.date}>

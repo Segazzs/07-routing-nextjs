@@ -1,4 +1,4 @@
-import { getTag } from "@/lib/api";
+import { noteFetch } from "@/lib/api";
 import {
   dehydrate,
   HydrationBoundary,
@@ -16,14 +16,12 @@ export default async function Tag({ params }: Props) {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["noteFilter", category],
-    queryFn: () => getTag(category),
+    queryFn: () => noteFetch("", 1, category),
   });
 
   return (
-    <div>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <NotesClient />
-      </HydrationBoundary>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <NotesClient category={category} />
+    </HydrationBoundary>
   );
 }
