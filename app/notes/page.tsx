@@ -1,4 +1,4 @@
-import { noteFetch } from "@/lib/api";
+import { noteFetch, getTag } from "@/lib/api";
 import NotesClient from "./Notes.client";
 import {
   dehydrate,
@@ -7,6 +7,9 @@ import {
 } from "@tanstack/react-query";
 
 export default async function App() {
+  const res = await getTag("Work");
+  console.log(res);
+
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["notes"],

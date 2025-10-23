@@ -22,7 +22,6 @@ export const noteFetch = async (
     `${API_URL}?search=${text}&page=${page}&perPage=20&sortBy=created`,
     { headers }
   );
-  console.log(res);
   return res.data;
 };
 
@@ -46,4 +45,11 @@ export const noteCreate = async ({
 export const fetchNoteById = async (id: string): Promise<Note> => {
   const { data } = await axios.get<Note>(`${API_URL}/${id}`, { headers });
   return data;
+};
+
+export const getTag = async (tag?: string): Promise<FetchItem> => {
+  const url = tag ? `${API_URL}?tag=${tag}` : API_URL;
+  const res = await axios.get<FetchItem>(url, { headers });
+  console.log(res);
+  return res.data;
 };
