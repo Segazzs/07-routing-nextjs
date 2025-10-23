@@ -1,3 +1,17 @@
-export default function ErrorSlug() {
-  return <div>Something went wrong</div>;
+"use client";
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
+  return (
+    <div style={{ padding: "2rem" }}>
+      <h2>Something went wrong</h2>
+      <p>{error.message}</p>
+      <button onClick={() => reset()}>Try again</button>
+    </div>
+  );
 }
