@@ -16,8 +16,8 @@ const headers = {
 
 export const noteFetch = async (
   text: string,
-  page: number,
-  tag?: string
+  tag?: string,
+  page?: number
 ): Promise<FetchItem> => {
   let url = `${API_URL}?search=${text}&page=${page}&perPage=20&sortBy=created`;
 

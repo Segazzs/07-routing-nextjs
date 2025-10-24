@@ -16,12 +16,12 @@ export default async function Tag({ params }: Props) {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["noteFilter", category],
-    queryFn: () => noteFetch("", 1, category),
+    queryFn: () => noteFetch("", category, 1),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <NotesClient category={category} />
+      <NotesClient tag={category} />
     </HydrationBoundary>
   );
 }

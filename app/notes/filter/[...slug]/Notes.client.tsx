@@ -13,10 +13,10 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import NoteForm from "@/components/NoteForm/NoteForm";
 
 interface NotesClientProps {
-  category?: string;
+  tag?: string;
 }
 
-export default function NotesClient({ category }: NotesClientProps) {
+export default function NotesClient({ tag }: NotesClientProps) {
   const [page, setPage] = useState(1);
   const [text, setText] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -35,28 +35,15 @@ export default function NotesClient({ category }: NotesClientProps) {
   const onClose = () => setIsOpen(false);
 
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ["noteFilter", page, debouncedText, category],
-    queryFn: () => noteFetch(debouncedText, page, category),
+    queryKey: ["noteFilter", page, debouncedText, tag],
+    queryFn: () => noteFetch(debouncedText, tag, page),
   });
 
-  console.log(category);
-
-  if (isLoading) {
-    return <p>Loading, please wait...</p>;
-  }
-
-  if (isError) {
-    return <p>Something went wrong.</p>;
-  }
-
-  if (!data) {
-    return <p>No note found.</p>;
-  }
   return (
     <>
       <div className={css.app}>
         <div className={css.interface}>
-          <SearchBox text={text} onChange={handleChange} />
+          <SearchBox onChange={handleChange} value={text} />
 
           {isSuccess && data.totalPages > 1 && (
             <Pagination

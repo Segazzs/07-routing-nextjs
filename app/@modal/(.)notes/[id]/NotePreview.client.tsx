@@ -32,7 +32,7 @@ export default function NotePreview() {
     return <p>No note found.</p>;
   }
   return (
-    <ModalNote>
+    <ModalNote close={handleClose}>
       <div className={css.container}>
         <div className={css.item}>
           <div className={css.header}>

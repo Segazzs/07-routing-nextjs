@@ -5,9 +5,10 @@ import css from "./ModalNote.module.css";
 
 type Props = {
   children: React.ReactNode;
+  close: () => void;
 };
 
-const Modal = ({ children }: Props) => {
+const Modal = ({ children, close }: Props) => {
   const handleBackDropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       close();
