@@ -35,7 +35,7 @@ export default function NotesClient({ tag }: NotesClientProps) {
   const onClose = () => setIsOpen(false);
 
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ["noteFilter", page, debouncedText, tag],
+    queryKey: ["notes", page, debouncedText, tag],
     queryFn: () => noteFetch(debouncedText, tag, page),
   });
 
@@ -45,7 +45,7 @@ export default function NotesClient({ tag }: NotesClientProps) {
         <div className={css.interface}>
           <SearchBox onChange={handleChange} value={text} />
 
-          {isSuccess && data.totalPages > 1 && (
+          {isSuccess && (
             <Pagination
               totalPages={data.totalPages}
               currentPage={page}

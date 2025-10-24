@@ -15,7 +15,7 @@ export default async function Tag({ params }: Props) {
   const category = slug[0] === "all" ? undefined : slug[0];
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ["noteFilter", category],
+    queryKey: ["notes", category],
     queryFn: () => noteFetch("", category, 1),
   });
 

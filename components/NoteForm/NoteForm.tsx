@@ -9,7 +9,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { FormValues } from "../../types/note";
 
 interface NoteFormProps {
-  onClose: () => void; // ✅ простіше і логічніше
+  onClose: () => void;
 }
 
 const initialValues: FormValues = {
